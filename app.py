@@ -9,9 +9,12 @@ if "BINDO" not in st.session_state:
     st.session_state.BINDO = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=986118028")
 
 def show_soal(subject, subject_key):
+    if "submit" not in st.session_state:
+        st.session_state.submit = False
     answers = {}
     nilai = 0
-    jml_soal = len(subject)+1
+    jml_soal = len(subject)
+    jawaban = subject['answer'].tolist()
     for idx, row in subject.iterrows():
         with st.container(border=True):
             st.write(f"Question {row['No.']}")
@@ -22,8 +25,16 @@ def show_soal(subject, subject_key):
                 index=None,
                 key=f'question_{subject_key}_{idx}'
             )
+            if st.session_state.submit == True:
+                try:
+                    if answers[idx][0] == jawaban[idx]:
+                        st.success("betul")
+                    else:
+                        st.error(f"jawaban yang benar: {jawaban[idx]}")
+                except:
+                    st.error("belum dijawab")
     if st.button("Submit", key=subject_key):    
-        jawaban = subject['answer'].tolist()
+        st.session_state.submit = True
         for idx, jwb in enumerate(jawaban):
             try:
                 if answers[idx][0] == jwb:
