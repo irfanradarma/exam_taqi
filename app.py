@@ -12,7 +12,7 @@ if "AKIDAH" not in st.session_state:
 
 def show_soal(subject, subject_key):
     if "submit" not in st.session_state:
-        st.session_state.submit = False
+        st.session_state.submit = 0
     st.session_state.answers = {}
     st.session_state.nilai = 0
     st.session_state.jml_soal = len(subject)
@@ -28,20 +28,21 @@ def show_soal(subject, subject_key):
                 key=f'question_{subject_key}_{row['No.']}'
             )
             st.session_state.jawaban[row['No.']] = row['answer']
-            if st.session_state.submit == True:
+            if st.session_state.submit > 0:
                 try:
-                    if st.session_state.answers[row['No.']] == st.session_state.jawaban[row['No.']]:
+                    if st.session_state.answers[row['No.']][0] == st.session_state.jawaban[row['No.']]:
                         st.success("betul")
                     else:
                         st.error(f"jawaban yang benar: {st.session_state.jawaban[row['No.']]}")
                 except:
                     st.error("belum dijawab")
+    st.session_state.submit = 0
     if st.button("Submit", key=subject_key):
-        st.session_state.submit = False
-        st.session_state.submit = True
+        if st.session_state.submit <= 1:
+            st.session_state.submit += 1
         for number in subject['No.']:
             try:
-                if st.session_state.answers[number] == st.session_state.jawaban[number]:
+                if st.session_state.answers[number][0] == st.session_state.jawaban[number]:
                     st.session_state.nilai += 1
             except:
                 pass
