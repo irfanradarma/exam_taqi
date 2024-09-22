@@ -11,8 +11,6 @@ if "AKIDAH" not in st.session_state:
     st.session_state.AKIDAH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1866255283")
 
 def show_soal(subject, subject_key):
-    if "submit" not in st.session_state:
-        st.session_state.submit = 0
     st.session_state.answers = {}
     st.session_state.nilai = 0
     st.session_state.jml_soal = len(subject)
@@ -28,27 +26,22 @@ def show_soal(subject, subject_key):
                 key=f'question_{subject_key}_{row['No.']}'
             )
             st.session_state.jawaban[row['No.']] = row['answer']
-            if st.session_state.submit > 0:
-                try:
-                    if st.session_state.answers[row['No.']][0] == st.session_state.jawaban[row['No.']]:
-                        st.success("betul")
-                    else:
-                        st.error(f"jawaban yang benar: {st.session_state.jawaban[row['No.']]}")
-                except:
-                    st.error("belum dijawab")
-    st.session_state.submit = 0
     if st.button("Submit", key=subject_key):
-        if st.session_state.submit <= 1:
-            st.session_state.submit += 1
+        salah = []
         for number in subject['No.']:
             try:
                 if st.session_state.answers[number][0] == st.session_state.jawaban[number]:
                     st.session_state.nilai += 1
+                else:
+                    salah.append(number)
             except:
                 pass
         
     st.write(f"Jumlah betul: {st.session_state.nilai}")
     st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
+    if st.session_state.nilai < 10:
+        st.write(f"coba cek lagi jawaban nomor: {salah}")
+        
 
 def main():
     st.title("Latihan Ulangan")
