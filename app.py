@@ -48,7 +48,13 @@ def main():
     st.title("Latihan Ulangan")
     tab_bindo, tab_akidah, tab_mtk, tab_pkn = st.tabs(["B. Indonesia", "Akidah","Matematika", "PKN"])
     with tab_mtk:
-        show_soal(st.session_state.MTK, "mtk")
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
+        with subtab1:
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(1,11)], "mtk1")
+        with subtab2:
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(11,21)], "mtk2")
+        with subtab3:
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(21,31)], "mtk3")
         # st.write(f"Jumlah betul: {st.session_state.nilai}")
         # st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_pkn:
@@ -56,7 +62,7 @@ def main():
         # st.write(f"Jumlah betul: {st.session_state.nilai}")
         # st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_bindo:
-        subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
             show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(1,11))], "bindo1")
             # st.write(f"Jumlah betul: {st.session_state.nilai}")
@@ -70,7 +76,7 @@ def main():
             # st.write(f"Jumlah betul: {st.session_state.nilai}")
             # st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_akidah:
-        subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
             show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(1,11))], "akidah1")
             # st.write(f"Jumlah betul: {st.session_state.nilai}")
