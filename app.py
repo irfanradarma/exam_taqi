@@ -59,31 +59,31 @@ def main():
     with tab_bindo:
         subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
         with subtab1:
-            nilai, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(1,11))], "bindo1")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_bindo1, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(1,11))], "bindo1")
+            st.write(f"Jumlah betul: {nilai_bindo1}")
+            st.write(f"Nilainya adalah {nilai_bindo1/jml_soal * 100:.2f}%")
         with subtab2:
-            nilai, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(11,21))], "bindo2")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_bindo2, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(11,21))], "bindo2")
+            st.write(f"Jumlah betul: {nilai_bindo2}")
+            st.write(f"Nilainya adalah {nilai_bindo2/jml_soal * 100:.2f}%")
         with subtab3:
-            nilai, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(21,31))], "bindo3")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_bindo3, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(21,31))], "bindo3")
+            st.write(f"Jumlah betul: {nilai_bindo3}")
+            st.write(f"Nilainya adalah {nilai_bindo3/jml_soal * 100:.2f}%")
     with tab_akidah:
         subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
         with subtab1:
-            nilai, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(1,11))], "akidah1")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_akidah1, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(1,11))], "akidah1")
+            st.write(f"Jumlah betul: {nilai_akidah1}")
+            st.write(f"Nilainya adalah {nilai_akidah1/jml_soal * 100:.2f}%")
         with subtab2:
-            nilai, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(11,21))], "akidah2")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_akidah2, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(11,21))], "akidah2")
+            st.write(f"Jumlah betul: {nilai_akidah2}")
+            st.write(f"Nilainya adalah {nilai_akidah2/jml_soal * 100:.2f}%")
         with subtab3:
-            nilai, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(21,31))], "akidah3")
-            st.write(f"Jumlah betul: {nilai}")
-            st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+            nilai_akidah3, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(21,31))], "akidah3")
+            st.write(f"Jumlah betul: {nilai_akidah3}")
+            st.write(f"Nilainya adalah {nilai_akidah3/jml_soal * 100:.2f}%")
 
 if __name__ == "__main__":
     main()
