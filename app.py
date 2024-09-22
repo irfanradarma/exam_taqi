@@ -50,11 +50,11 @@ def main():
     with tab_mtk:
         subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
-            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(1,11)], "mtk1")
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(1,11))], "mtk1")
         with subtab2:
-            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(11,21)], "mtk2")
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(11,21))], "mtk2")
         with subtab3:
-            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(21,31)], "mtk3")
+            show_soal(st.session_state.MTK[st.session_state.MTK["No."].isin(range(21,31))], "mtk3")
         # st.write(f"Jumlah betul: {st.session_state.nilai}")
         # st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_pkn:
