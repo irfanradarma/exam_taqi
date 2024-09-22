@@ -41,7 +41,8 @@ def show_soal(subject, subject_key):
     st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     if st.session_state.nilai < 10:
         st.write(f"coba cek lagi jawaban nomor:")
-        st.write(salah)
+        for i in salah:
+            st.write(i)
         
 
 def main():
