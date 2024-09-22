@@ -35,7 +35,8 @@ def show_soal(subject, subject_key):
                         st.error(f"jawaban yang benar: {jawaban[idx]}")
                 except:
                     st.error("belum dijawab")
-    if st.button("Submit", key=subject_key):    
+    if st.button("Submit", key=subject_key):
+        st.session_state.submit = False
         st.session_state.submit = True
         for idx, jwb in enumerate(jawaban):
             try:
