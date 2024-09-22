@@ -47,7 +47,7 @@ def show_soal(subject, subject_key):
 
 def main():
     st.title("Latihan Ulangan")
-    tab_mtk, tab_pkn, tab_bindo, tab_akidah = st.tabs(["Matematika", "PKN", "B. Indonesia", "Akidah"])
+    tab_bindo, tab_akidah, tab_mtk, tab_pkn = st.tabs(["B. Indonesia", "Akidah","Matematika", "PKN"])
     with tab_mtk:
         nilai, jml_soal = show_soal(st.session_state.MTK, "mtk")
         st.write(f"Jumlah betul: {nilai}")
