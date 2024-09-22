@@ -13,14 +13,14 @@ if "AKIDAH" not in st.session_state:
 def show_soal(subject, subject_key):
     if "submit" not in st.session_state:
         st.session_state.submit = False
-    answers = {}
-    nilai = 0
-    jml_soal = len(subject)
-    jawaban = subject['answer'].tolist()
+    st.session_state.answers = {}
+    st.session_state.nilai = 0
+    st.session_state.jml_soal = len(subject)
+    st.session_state.jawaban = subject['answer'].tolist()
     for idx, row in subject.iterrows():
         with st.container(border=True):
             st.write(f"Question {row['No.']}")
-            answers[idx] = st.radio(
+            st.session_state.answers[idx] = st.radio(
                 label=f"{row['Questions']}",  # Adding the label argument here
                 options=[f'a. {row['a']}', f'b. {row['b']}', f'c. {row['c']}', f'd. {row['d']}'],
                 # index=['a', 'b', 'c', 'd'].index(row['answer']),
@@ -29,62 +29,61 @@ def show_soal(subject, subject_key):
             )
             if st.session_state.submit == True:
                 try:
-                    if answers[idx][0] == jawaban[idx]:
+                    if st.session_state.answers[idx][0] == st.session_state.jawaban[idx]:
                         st.success("betul")
                     else:
-                        st.error(f"jawaban yang benar: {jawaban[idx]}")
+                        st.error(f"jawaban yang benar: {st.session_state.jawaban[idx]}")
                 except:
                     st.error("belum dijawab")
     if st.button("Submit", key=subject_key):
         st.session_state.submit = False
         st.session_state.submit = True
-        for idx, jwb in enumerate(jawaban):
+        for idx, jwb in enumerate(st.session_state.jawaban):
             try:
-                if answers[idx][0] == jwb:
-                    nilai += 1
+                if st.session_state.answers[idx][0] == jwb:
+                    st.session_state.nilai += 1
             except:
                 pass
-    return nilai, jml_soal
 
 def main():
     st.title("Latihan Ulangan")
     tab_bindo, tab_akidah, tab_mtk, tab_pkn = st.tabs(["B. Indonesia", "Akidah","Matematika", "PKN"])
     with tab_mtk:
-        nilai, jml_soal = show_soal(st.session_state.MTK, "mtk")
-        st.write(f"Jumlah betul: {nilai}")
-        st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+        show_soal(st.session_state.MTK, "mtk")
+        st.write(f"Jumlah betul: {st.session_state.nilai}")
+        st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_pkn:
-        nilai, jml_soal = show_soal(st.session_state.PKN, 'pkn')
-        st.write(f"Jumlah betul: {nilai}")
-        st.write(f"Nilainya adalah {nilai/jml_soal * 100:.2f}%")
+        show_soal(st.session_state.PKN, 'pkn')
+        st.write(f"Jumlah betul: {st.session_state.nilai}")
+        st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_bindo:
         subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
         with subtab1:
-            nilai_bindo1, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(1,11))], "bindo1")
-            st.write(f"Jumlah betul: {nilai_bindo1}")
-            st.write(f"Nilainya adalah {nilai_bindo1/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(1,11))], "bindo1")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
         with subtab2:
-            nilai_bindo2, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(11,21))], "bindo2")
-            st.write(f"Jumlah betul: {nilai_bindo2}")
-            st.write(f"Nilainya adalah {nilai_bindo2/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(11,21))], "bindo2")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
         with subtab3:
-            nilai_bindo3, jml_soal = show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(21,31))], "bindo3")
-            st.write(f"Jumlah betul: {nilai_bindo3}")
-            st.write(f"Nilainya adalah {nilai_bindo3/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.BINDO[st.session_state.BINDO["No."].isin(range(21,31))], "bindo3")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     with tab_akidah:
         subtab1, subtab2, subtab3 = st.tabs(["Satu", "Dua", "Tiga"])
         with subtab1:
-            nilai_akidah1, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(1,11))], "akidah1")
-            st.write(f"Jumlah betul: {nilai_akidah1}")
-            st.write(f"Nilainya adalah {nilai_akidah1/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(1,11))], "akidah1")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
         with subtab2:
-            nilai_akidah2, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(11,21))], "akidah2")
-            st.write(f"Jumlah betul: {nilai_akidah2}")
-            st.write(f"Nilainya adalah {nilai_akidah2/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(11,21))], "akidah2")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
         with subtab3:
-            nilai_akidah3, jml_soal = show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(21,31))], "akidah3")
-            st.write(f"Jumlah betul: {nilai_akidah3}")
-            st.write(f"Nilainya adalah {nilai_akidah3/jml_soal * 100:.2f}%")
+            show_soal(st.session_state.AKIDAH[st.session_state.AKIDAH["No."].isin(range(21,31))], "akidah3")
+            st.write(f"Jumlah betul: {st.session_state.nilai}")
+            st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
 
 if __name__ == "__main__":
     main()
