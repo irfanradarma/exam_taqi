@@ -15,6 +15,7 @@ def show_soal(subject, subject_key):
     st.session_state.nilai = 0
     st.session_state.jml_soal = len(subject)
     st.session_state.jawaban = {}
+    st.session_state.salah = []
     for idx, row in subject.iterrows():
         with st.container(border=True):
             st.write(f"Question {idx+1}")
@@ -27,22 +28,19 @@ def show_soal(subject, subject_key):
             )
             st.session_state.jawaban[row['No.']] = row['answer']
     if st.button("Submit", key=subject_key):
-        salah = []
         for number in subject['No.']:
             try:
                 if st.session_state.answers[number][0] == st.session_state.jawaban[number]:
                     st.session_state.nilai += 1
                 else:
-                    salah.append(number)
+                    st.session_state.salah.append(number)
             except:
                 pass
         
     st.write(f"Jumlah betul: {st.session_state.nilai}")
     st.write(f"Nilainya adalah {st.session_state.nilai/st.session_state.jml_soal * 100:.2f}%")
     if st.session_state.nilai < 10:
-        st.write(f"coba cek lagi jawaban nomor:")
-        for i in salah:
-            st.write(i)
+        st.write(f"coba cek lagi jawaban nomor: {st.session_state.salah}")
         
 
 def main():
