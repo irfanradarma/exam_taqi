@@ -46,7 +46,7 @@ def show_soal(subject, subject_key):
 
 def main():
     st.title("Latihan Ulangan")
-    tab_bindo, tab_akidah, tab_mtk, tab_pkn, tab_fikih = st.tabs(["B. Indonesia", "Akidah","Matematika", "PKN", "Fikih"])
+    tab_bindo, tab_mtk, tab_pkn, tab_akidah, tab_fikih = st.tabs(["B. Indonesia", "Matematika", "PKN", "Akidah", "Fikih"])
     with tab_mtk:
         subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
