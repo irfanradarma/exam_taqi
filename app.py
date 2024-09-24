@@ -29,8 +29,10 @@ def show_soal(subject, subject_key):
             label = label.split("\n")
             for i in range(len(label)):
                 if len(label) > 1:
-                    if i < len(label):
+                    if i < len(label)-1:
                         y = label[i][:-2]
+                    else:
+                        y = label[i]
                 else:
                     y = label[i]
                 st.write(y)
