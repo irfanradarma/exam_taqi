@@ -11,6 +11,8 @@ if "AKIDAH" not in st.session_state:
     st.session_state.AKIDAH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1866255283")
 if "FIKIH" not in st.session_state:
     st.session_state.FIKIH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1247484320")
+if "SENI" not in st.session_state:
+    st.session_state.FIKIH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=360219782")
 
 def show_soal(subject, subject_key):
     st.session_state.answers = {}
@@ -46,7 +48,7 @@ def show_soal(subject, subject_key):
 
 def main():
     st.title("Latihan Ulangan")
-    tab_bindo, tab_mtk, tab_pkn, tab_akidah, tab_fikih = st.tabs(["B. Indonesia", "Matematika", "PKN", "Akidah", "Fikih"])
+    tab_bindo, tab_mtk, tab_pkn, tab_akidah, tab_fikih, tab_seni = st.tabs(["B. Indonesia", "Matematika", "PKN", "Akidah", "Fikih", "Seni Rupa"])
     with tab_mtk:
         subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
@@ -99,6 +101,15 @@ def main():
             show_soal(st.session_state.FIKIH[st.session_state.FIKIH["No."].isin(range(11,21))], "fikih2")
         with subtab3:
             show_soal(st.session_state.FIKIH[st.session_state.FIKIH["No."].isin(range(21,31))], "fikih3")
+    
+    with tab_seni:
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
+        with subtab1:
+            show_soal(st.session_state.SENI[st.session_state.SENI["No."].isin(range(1,11))], "seni1")
+        with subtab2:
+            show_soal(st.session_state.SENI[st.session_state.SENI["No."].isin(range(11,21))], "seni2")
+        with subtab3:
+            show_soal(st.session_state.SENI[st.session_state.SENI["No."].isin(range(21,31))], "seni3")
 
 if __name__ == "__main__":
     main()
