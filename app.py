@@ -13,6 +13,8 @@ if "FIKIH" not in st.session_state:
     st.session_state.FIKIH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1247484320")
 if "SENI" not in st.session_state:
     st.session_state.SENI = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=360219782")
+if "ENG" not in st.session_state:
+    st.session_state.ENG = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=2130374808")
 
 def show_soal(subject, subject_key):
     st.session_state.answers = {}
@@ -23,8 +25,18 @@ def show_soal(subject, subject_key):
     for idx, row in subject.iterrows():
         with st.container(border=True):
             st.write(f"Question {idx+1}")
+            label = str(row['Questions'])
+            label = label.split("\n")
+            for i in range(len(label)):
+                if len(label) > 1:
+                    if i < len(label):
+                        y = label[i][:-2]
+                else:
+                    y = label[i]
+                st.write(y)
             st.session_state.answers[row['No.']] = st.radio(
-                label=f"{row['Questions']}",  # Adding the label argument here
+                label="",  # Adding the label argument here
+                label_visibility="hidden",
                 options=[f'a. {row['a']}', f'b. {row['b']}', f'c. {row['c']}', f'd. {row['d']}'],
                 # index=['a', 'b', 'c', 'd'].index(row['answer']),
                 index=None,
@@ -48,7 +60,13 @@ def show_soal(subject, subject_key):
 
 def main():
     st.title("Latihan Ulangan")
-    tab_bindo, tab_mtk, tab_pkn, tab_akidah, tab_fikih, tab_seni = st.tabs(["B. Indonesia", "Matematika", "PKN", "Akidah", "Fikih", "Seni Rupa"])
+    tab_bindo,tab_mtk, tab_pkn, tab_akidah, tab_fikih, tab_seni, tab_eng = st.tabs(["B. Indonesia", 
+                                                                           "Matematika", 
+                                                                           "PKN", 
+                                                                           "Akidah", 
+                                                                           "Fikih", 
+                                                                           "Seni Rupa",
+                                                                           "Bhs. Inggris"])
     with tab_mtk:
         subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
@@ -110,6 +128,15 @@ def main():
             show_soal(st.session_state.SENI[st.session_state.SENI["No."].isin(range(11,21))], "seni2")
         with subtab3:
             show_soal(st.session_state.SENI[st.session_state.SENI["No."].isin(range(21,31))], "seni3")
+
+    with tab_eng:
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
+        with subtab1:
+            show_soal(st.session_state.ENG[st.session_state.ENG["No."].isin(range(1,11))], "english1")
+        with subtab2:
+            show_soal(st.session_state.ENG[st.session_state.ENG["No."].isin(range(11,21))], "english2")
+        with subtab3:
+            show_soal(st.session_state.ENG[st.session_state.ENG["No."].isin(range(21,31))], "english3")
 
 if __name__ == "__main__":
     main()
