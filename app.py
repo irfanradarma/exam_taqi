@@ -12,7 +12,7 @@ if "AKIDAH" not in st.session_state:
 if "FIKIH" not in st.session_state:
     st.session_state.FIKIH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1247484320")
 if "SENI" not in st.session_state:
-    st.session_state.FIKIH = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=360219782")
+    st.session_state.SENI = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=360219782")
 
 def show_soal(subject, subject_key):
     st.session_state.answers = {}
