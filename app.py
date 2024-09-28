@@ -155,9 +155,9 @@ def main():
     with tab_arab:
         subtab1, subtab2, subtab3, subtab4 = st.tabs(["1-10", "11-20", "21-30", "31-40"])
         with subtab1:
-            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(1,11))], "arab1", img_label = "مَاهَذَا؟")
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(1,11))], "arab1", img_label = "مَاهٰذَا؟")
         with subtab2:
-            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(11,21))], "arab2", img_label = "مَاهَذَا؟")
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(11,21))], "arab2", img_label = "مَاهٰذَا؟")
         with subtab3:
             show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(21,31))], "arab3", img_label = "مَاهٰذِهِ؟")
         with subtab4:
