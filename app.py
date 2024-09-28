@@ -15,8 +15,12 @@ if "SENI" not in st.session_state:
     st.session_state.SENI = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=360219782")
 if "ENG" not in st.session_state:
     st.session_state.ENG = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=2130374808")
+if "ARAB" not in st.session_state:
+    st.session_state.ARAB = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=1841454773")
+if "PENJAS" not in st.session_state:
+    st.session_state.PENJAS = pd.read_csv("https://docs.google.com/spreadsheets/d/13PriSfxskOTcAlGv-gFd7WoiB2nQ2yx9hzsYQQUqJeY/export?format=csv&gid=705103243")
 
-def show_soal(subject, subject_key):
+def show_soal(subject, subject_key, img_label=False):
     st.session_state.answers = {}
     st.session_state.nilai = 0
     st.session_state.jml_soal = len(subject)
@@ -35,10 +39,16 @@ def show_soal(subject, subject_key):
                         y = label[i]
                 else:
                     y = label[i]
-                st.write(y)
+                if y[:4] == "http":
+                    st.image(y)
+                else:
+                    st.write(y)
+            if img_label==False or idx < 2:
+                radio_label = ""
+            else:
+                radio_label = img_label
             st.session_state.answers[row['No.']] = st.radio(
-                label="",  # Adding the label argument here
-                label_visibility="hidden",
+                label=radio_label,  # Adding the label argument here
                 options=[f'a. {row['a']}', f'b. {row['b']}', f'c. {row['c']}', f'd. {row['d']}'],
                 # index=['a', 'b', 'c', 'd'].index(row['answer']),
                 index=None,
@@ -62,13 +72,15 @@ def show_soal(subject, subject_key):
 
 def main():
     st.title("Latihan Ulangan")
-    tab_bindo,tab_mtk, tab_pkn, tab_akidah, tab_fikih, tab_seni, tab_eng = st.tabs(["B. Indonesia", 
+    tab_bindo,tab_mtk, tab_pkn, tab_akidah, tab_fikih, tab_seni, tab_eng, tab_arab, tab_penjas = st.tabs(["B. Indonesia", 
                                                                            "Matematika", 
                                                                            "PKN", 
                                                                            "Akidah", 
                                                                            "Fikih", 
                                                                            "Seni Rupa",
-                                                                           "Bhs. Inggris"])
+                                                                           "Bhs. Inggris",
+                                                                           "Bhs. Arab",
+                                                                           "Penjas"])
     with tab_mtk:
         subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
         with subtab1:
@@ -139,6 +151,26 @@ def main():
             show_soal(st.session_state.ENG[st.session_state.ENG["No."].isin(range(11,21))], "english2")
         with subtab3:
             show_soal(st.session_state.ENG[st.session_state.ENG["No."].isin(range(21,31))], "english3")
+
+    with tab_arab:
+        subtab1, subtab2, subtab3, subtab4 = st.tabs(["1-10", "11-20", "21-30", "31-40"])
+        with subtab1:
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(1,11))], "arab1", img_label = "مَاهَذَا؟")
+        with subtab2:
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(11,21))], "arab2", img_label = "مَاهَذَا؟")
+        with subtab3:
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(21,31))], "arab3", img_label = "مَاهٰذِهِ؟")
+        with subtab4:
+            show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(31,41))], "arab4", img_label = "مَاهٰذِهِ؟")
+
+    with tab_penjas:
+        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
+        with subtab1:
+            show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(1,11))], "penjas1")
+        with subtab2:
+            show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(11,21))], "penjas2")
+        with subtab3:
+            show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(21,31))], "penjas3")
 
 if __name__ == "__main__":
     main()
