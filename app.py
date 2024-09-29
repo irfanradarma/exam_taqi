@@ -164,13 +164,15 @@ def main():
             show_soal(st.session_state.ARAB[st.session_state.ARAB["No."].isin(range(31,41))], "arab4", img_label = "مَاهٰذِهِ؟")
 
     with tab_penjas:
-        subtab1, subtab2, subtab3 = st.tabs(["1-10", "11-20", "21-30"])
+        subtab1, subtab2, subtab3, subtab4 = st.tabs(["1-10", "11-20", "21-30", "31-40"])
         with subtab1:
             show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(1,11))], "penjas1")
         with subtab2:
             show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(11,21))], "penjas2")
         with subtab3:
             show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(21,31))], "penjas3")
+        with subtab4:
+            show_soal(st.session_state.PENJAS[st.session_state.PENJAS["No."].isin(range(31,41))], "penjas4")
 
 if __name__ == "__main__":
     main()
