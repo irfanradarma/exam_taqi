@@ -24,7 +24,7 @@ def main():
     if 'database' not in st.session_state:
         st.session_state.database = load_data(sheet_url)
 
-    st.title("📋 SATOE Alumni Directory")
+    st.title("📋 SATOE-51 Alumni Directory")
 
     col1, col2, col3 = st.columns([2, 2, 3])
     with col1:
