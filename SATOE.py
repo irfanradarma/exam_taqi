@@ -3,36 +3,6 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
-# --- Custom CSS Styling ---
-st.markdown("""
-    <style>
-        .main-title {
-            font-size: 36px;
-            font-weight: bold;
-            color: #2c3e50;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        .filter-box {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-        }
-        .dataframe th {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        .block-container {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            padding-left: 3rem;
-            padding-right: 3rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
 # --- Load Sheet ---
 sheet_url = "https://docs.google.com/spreadsheets/d/1wYHIvmtuKeHHZeOgrrSTu1mkDsQsIc419XAUlfzQLoY/export?format=csv&gid=742196418"
 
@@ -54,27 +24,23 @@ def main():
     if 'database' not in st.session_state:
         st.session_state.database = load_data(sheet_url)
 
-    st.markdown("<div class='main-title'>📋 SATOE Alumni Directory</div>", unsafe_allow_html=True)
+    st.title("📋 SATOE Alumni Directory")
 
-    # Filter container
-    with st.container():
-        #st.markdown("<div class='filter-box'>", unsafe_allow_html=True)
-        col1, col2, col3 = st.columns([2, 2, 3])
-        with col1:
-            st.session_state.kelas = st.multiselect(
-                label='KELAS',
-                options=['ALL'] + sorted(st.session_state.database['KELAS'].dropna().unique().tolist()),
-                default='ALL'
-            )
-        with col2:
-            st.session_state.okupasi = st.multiselect(
-                label='OKUPASI',
-                options=['ALL'] + sorted(st.session_state.database['OKUPASI'].dropna().unique().tolist()),
-                default='ALL'
-            )
-        with col3:
-            st.session_state.nama = st.text_input("Cari berdasarkan NAMA (bebas huruf besar/kecil):")
-        st.markdown("</div>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([2, 2, 3])
+    with col1:
+        st.session_state.kelas = st.multiselect(
+            label='KELAS',
+            options=['ALL'] + sorted(st.session_state.database['KELAS'].dropna().unique().tolist()),
+            default='ALL'
+        )
+    with col2:
+        st.session_state.okupasi = st.multiselect(
+            label='OKUPASI',
+            options=['ALL'] + sorted(st.session_state.database['OKUPASI'].dropna().unique().tolist()),
+            default='ALL'
+        )
+    with col3:
+        st.session_state.nama = st.text_input("Cari berdasarkan NAMA (bebas huruf besar/kecil):")
 
     # --- Filtering Logic ---
     filtered_df = st.session_state.database.copy()
@@ -92,8 +58,6 @@ def main():
 
     # --- Show Table ---
     st.dataframe(filtered_df, use_container_width=True)
-
-    # Footer separator
     st.markdown('---')
 
 if __name__ == "__main__":
