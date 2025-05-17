@@ -58,7 +58,7 @@ def main():
 
     # Filter container
     with st.container():
-        st.markdown("<div class='filter-box'>", unsafe_allow_html=True)
+        #st.markdown("<div class='filter-box'>", unsafe_allow_html=True)
         col1, col2, col3 = st.columns([2, 2, 3])
         with col1:
             st.session_state.kelas = st.multiselect(
