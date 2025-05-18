@@ -24,7 +24,7 @@ def main():
     if 'database' not in st.session_state:
         st.session_state.database = load_data(sheet_url)
 
-    st.title("📋 SATOE-51 Alumni Directory")
+    st.title("📋 SATOE-52 Alumni Directory")
 
     col1, col2, col3 = st.columns([2, 2, 3])
     with col1:
@@ -58,6 +58,14 @@ def main():
 
     # --- Show Table ---
     st.dataframe(filtered_df, use_container_width=True)
+    st.markdown('---')
+
+    st.subheader("Rekap Data per Kelas")
+    kelas_counts = st.session_state.database['KELAS'].value_counts()
+    kelas_counts = kelas_counts.reset_index()
+    kelas_counts.columns = ['KELAS', 'JUMLAH']
+    kelas_counts = kelas_counts.sort_values(by='KELAS').reset_index(drop=True)
+    st.dataframe(kelas_counts, use_container_width=True, hide_index=True)
     st.markdown('---')
 
 if __name__ == "__main__":
