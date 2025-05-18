@@ -55,9 +55,37 @@ def main():
         filtered_df = filtered_df[filtered_df['NAMA'].str.contains(st.session_state.nama.strip(), case=False, na=False)]
 
     filtered_df = filtered_df.drop_duplicates(subset=['NAMA', 'KELAS', 'OKUPASI', 'INSTANSI', 'DOMISILI']).reset_index(drop=True)
+    filtered_df['No'] = filtered_df.index + 1
+    filtered_df = filtered_df[['No', 'NAMA', 'KELAS', 'OKUPASI', 'INSTANSI', 'DOMISILI']]
 
     # --- Show Table ---
-    st.dataframe(filtered_df, use_container_width=True)
+    st.dataframe(filtered_df, use_container_width=True, hide_index=True,
+                 column_config={
+                     'No': st.column_config.NumberColumn(
+                            width="small",
+                            help="Nomor"
+                     ),
+                     'NAMA': st.column_config.TextColumn(
+                            width="large",
+                            help="Nama Lengkap"
+                     ),
+                     'KELAS': st.column_config.TextColumn(
+                            width="small",
+                            help="Kelas"
+                     ),
+                     'OKUPASI': st.column_config.TextColumn(
+                            width="medium",
+                            help="Pekerjaan / Profesi"
+                     ),
+                     'INSTANSI': st.column_config.TextColumn(
+                            width="large",
+                            help="Nama Instansi / Perusahaan / Usaha Bisnis"
+                     ),
+                     'DOMISILI': st.column_config.TextColumn(
+                            width="medium",
+                            help="Kota Domisili"
+                     )
+                 })
     st.markdown('---')
 
     st.subheader("Rekap Data per Kelas")
