@@ -94,7 +94,7 @@ def main():
     kelas_counts.columns = ['KELAS', 'JUMLAH']
     kelas_counts['BAR'] = kelas_counts['JUMLAH']
     kelas_counts = kelas_counts.sort_values(by='KELAS').reset_index(drop=True)
-    st.dataframe(kelas_counts, use_container_width=True, hide_index=True,
+    st.dataframe(kelas_counts, use_container_width=False, hide_index=True,
                  column_config={
                      'KELAS': st.column_config.TextColumn(
                             width="small",
