@@ -59,7 +59,7 @@ def main():
     filtered_df = filtered_df[['No', 'NAMA', 'KELAS', 'OKUPASI', 'INSTANSI', 'DOMISILI']]
 
     # --- Show Table ---
-    st.dataframe(filtered_df, use_container_width=True, hide_index=True,
+    st.dataframe(filtered_df, use_container_width=True, hide_index=True, height=423,
                  column_config={
                      'No': st.column_config.NumberColumn(
                             width="small",
