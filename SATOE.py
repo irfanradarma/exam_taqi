@@ -92,8 +92,26 @@ def main():
     kelas_counts = st.session_state.database['KELAS'].value_counts()
     kelas_counts = kelas_counts.reset_index()
     kelas_counts.columns = ['KELAS', 'JUMLAH']
+    kelas_counts['BAR'] = kelas_counts['JUMLAH']
     kelas_counts = kelas_counts.sort_values(by='KELAS').reset_index(drop=True)
-    st.dataframe(kelas_counts, use_container_width=True, hide_index=True)
+    st.dataframe(kelas_counts, use_container_width=True, hide_index=True,
+                 column_config={
+                     'KELAS': st.column_config.TextColumn(
+                            width="small",
+                            help="Kelas"
+                     ),
+                        'JUMLAH': st.column_config.NumberColumn(
+                                width="small",
+                                help="Jumlah"
+                        ),
+                     'BAR': st.column_config.ProgressColumn(
+                            width="large",
+                            help="Jumlah",
+                            format=" ",
+                            max_value=48,
+                            min_value=0,
+                     )
+                 })
     st.markdown('---')
 
 if __name__ == "__main__":
